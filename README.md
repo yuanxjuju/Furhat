@@ -26,7 +26,7 @@ This is a conversational Furhat robot skill designed to promote mochi tasting an
 ## 🤝 Team Members
 
 - Jenny
-- [Your teammate names here...]
+- Jasmine
 
 ---
 
