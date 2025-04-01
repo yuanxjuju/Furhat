@@ -1,12 +1,13 @@
 package furhatos.app.gettingstarted.flow.main
 
+import furhatos.app.gettingstarted.flow.Parent
 import furhatos.flow.kotlin.*
 import furhatos.app.gettingstarted.nlu.*
 import furhatos.nlu.common.Yes
 import furhatos.nlu.common.No
 import furhatos.gestures.Gestures
 
-val EngageMatcha: State = state {
+val EngageMatcha: State = state(parent = Parent) {
 
     onEntry {
         furhat.attend(users.random)
@@ -37,7 +38,7 @@ val EngageMatcha: State = state {
     }
 }
 
-val ConfirmMoreMatcha: State = state {
+val ConfirmMoreMatcha: State = state(parent = Parent) {
 
     onEntry{
         furhat.ask("Would you like to take more?")
@@ -72,4 +73,6 @@ val EngageOthers: State = state {
         furhat.say("${it.intent.items}, what a lovely choice!")
         goto(TerminateWithPurchase)
     }
+
+
 }
