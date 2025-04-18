@@ -1,27 +1,43 @@
 package furhatos.app.gettingstarted.flow.main
 
 import furhatos.app.gettingstarted.flow.Parent
+import furhatos.app.gettingstarted.nlu.Greet
 import furhatos.flow.kotlin.*
-import furhatos.nlu.common.No
-import furhatos.nlu.common.Yes
 import furhatos.gestures.Gestures
+import furhatos.flow.kotlin.voice.AzureVoice
 
 // 2
-val Greeting: State = state(Parent) {
+val Greeting: State = state(parent = Parent) {
     onEntry {
         furhat.gesture(Gestures.BigSmile)
         furhat.attend(users.current)
-        furhat.say {
-            random {
-                +"Welcome shoppers! This is your lucky day! We’re selling delicious mochi!"
-                +"Don’t be shy, come closer! come try our Mochi!"
-            }
-        }
-        furhat.gesture(Gestures.Nod)
+        furhat.ask({
+            +"Hi sweetie!"
+            +Gestures.Wink
+        }, timeout = 3000)}
 
-        goto(PresentProduct)
+        onResponse<Greet> { //2.1
+            furhat.say {
+                random {
+                    +"Nice to see you!"
+                    +"Hey hey!"
+                }
+                +"Welcome the lucky customer of today!"
+            }
+            goto(PresentProduct)
+        }
+
+        onResponse {    //2.2
+            furhat.say("Welcome the lucky customer of today!")
+            goto(PresentProduct)
+        }
+
+        onNoResponse {
+            furhat.say("Welcome the lucky customer of today!")
+            goto(PresentProduct)
+        }
 
     }
 
-}
+
 
